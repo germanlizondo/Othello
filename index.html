@@ -3,7 +3,52 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title></title>
+  <title>OTHELLO</title>
+  <script type="text/javascript">
+    var xhr;
+
+    function inici() {
+      try {
+        // Firefox, Opera 8.0+, Safari, Chrome
+        xhr = new XMLHttpRequest();
+      } catch (e) {
+        // Internet Explorer
+        try {
+          xhr = new ActiveXObject("Msxml2.XMLHTTP");
+          //ie6+
+        } catch (e) {
+          try {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            //ie5
+          } catch (e) {
+            alert("El teu navegador no suporta AJAX!");
+            return false;
+          }
+        }
+      }
+      document.getElementById("busca").onkeyup = function() {
+        ajaxFunction();
+      };
+    
+    }
+
+    function ajaxFunction() {
+
+      //callback
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+                      console.log(xhr.responseText);
+          document.getElementById("result").innerHTML = xhr.responseText;
+        }
+      };
+
+      xhr.open("GET", "consultadades?busca="
+                       +document.getElementById("busca").value, true);
+      xhr.send(null);
+    }
+
+    window.addEventListener("load", inici, true);
+  </script>
 </head>
 <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center"><a href="/" class="navbar-brand d-flex w-50 mr-auto">Home</a>
   <button type="button" data-toggle="collapse" data-target="#collapsingNavbar3" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
@@ -15,7 +60,21 @@
   </div>
 </nav>
 <div class="container">
-  <h1 class="display-1 text-center">Othello</h1>
+  <h1 class="display-1 text-center">Othello <br> <a href="/game"><button type="button" class="btn btn-danger">Start</button></a>
+  </h1>
+
+       
+            <div class="input-group mb-3"><input id="busca" class="form-control" type="text" aria-label="Text input with checkbox" placeholder="Busca Jugador" name="busca"></div>
+            <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Partides Guanyades</th>
+                      </tr>
+                    </thead>
+                    <tbody id="result">
+                    </tbody>
+                  </table>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

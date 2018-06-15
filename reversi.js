@@ -1,4 +1,4 @@
-var reversi = {
+var partida = {
 
     father: null,
     score: null,
@@ -438,3 +438,4 @@ var reversi = {
         this.recalcuteScore();
     }
 };
+
